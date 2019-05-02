@@ -24,20 +24,19 @@ public class AccountController {
 
     @Autowired
     ProcessLogin process;
-    
+
     @Autowired
     EmployeeRepository employeeRepository;
 
+    /**
+     * Method pengembalian response dari login page
+     */
     @PostMapping("/loginState")
     public ResponseEntity<Map<String, Object>> loginState(@RequestBody Map<String, Object> data,
-            HttpSession session) throws IOException {
+            HttpSession session) {
         String id = data.get("id").toString();
         String password = data.get("password").toString();
-        System.out.println(id);
-        System.out.println(password);
         Optional<Employee> emp = employeeRepository.findById(id);
-        System.out.println(emp.get());
-
         Map<String, Object> result = new HashMap<>();
 
         if (!process.authUser(id, password)) {
